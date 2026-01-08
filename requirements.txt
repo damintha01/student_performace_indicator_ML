@@ -1,0 +1,13 @@
+pandas
+numpy
+seaborn
+matplotlib
+scikit-learn
+joblib
+xgboost
+catboost
+ipykernel
+jupyterlab
+
+#-e .
+ # Editable install for the current package
