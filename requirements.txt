@@ -8,6 +8,7 @@ xgboost
 catboost
 ipykernel
 jupyterlab
+dill
 
 #-e .
  # Editable install for the current package
