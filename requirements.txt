@@ -9,6 +9,7 @@ catboost
 ipykernel
 jupyterlab
 dill
+flask
 
 #-e .
  # Editable install for the current package
