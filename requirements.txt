@@ -1,15 +1,9 @@
-pandas
 numpy
-seaborn
-matplotlib
+pandas
 scikit-learn
-joblib
-xgboost
-catboost
-ipykernel
-jupyterlab
-dill
 flask
+joblib
+
 
 #-e .
  # Editable install for the current package
