@@ -11,5 +11,5 @@ jupyterlab
 dill
 flask
 
-#-e .
+-e .
  # Editable install for the current package
