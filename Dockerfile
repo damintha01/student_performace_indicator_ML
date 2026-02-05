@@ -1,5 +1,4 @@
-# Build stage
-FROM python:3.10-slim as builder
+FROM python:3.10-bullseye
 
 WORKDIR /app
 
@@ -8,25 +7,16 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     gcc \
     g++ \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Copy only required files first (layer caching)
 COPY requirements.txt .
 
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Final stage
-FROM python:3.10-slim
-
-WORKDIR /app
-
-# Copy only Python packages from builder
-COPY --from=builder /root/.local /root/.local
-
-# Make sure scripts are in PATH
-ENV PATH=/root/.local/bin:$PATH
-
-# Copy app code
+# Now copy app code
 COPY . .
 
 CMD ["python", "app.py"]
