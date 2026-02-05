@@ -1,8 +1,22 @@
-FROM python:3.10-slim
+FROM python:3.10-bullseye
+
 WORKDIR /app
-COPY . /app
 
-RUN apt update -y && apt install awscli -y
+# System dependencies for ML libs
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pip install -r requirements.txt
-CMD ["python3", "app.py"]
+# Copy only required files first (layer caching)
+COPY requirements.txt .
+
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Now copy app code
+COPY . .
+
+CMD ["python", "app.py"]
